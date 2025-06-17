@@ -1,0 +1,61 @@
+{
+  /* ──────────────────────────────────────────────
+     Which files TypeScript should know about
+     ────────────────────────────────────────────── */
+  "include": [
+    "client/src/**/*",
+    "shared/**/*",
+    "server/**/*",
+    "scripts/**/*"               // ✅ NEW: demo scripts
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "**/*.test.ts"
+  ],
+
+  /* ──────────────────────────────────────────────
+     Compiler settings (shared by Vite & ts‑node)
+     ────────────────────────────────────────────── */
+  "compilerOptions": {
+    /* Build behaviour */
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
+    "noEmit": true,                 // Vite handles emit; ts‑node runs in‑memory
+
+    /* Module system */
+    "module": "ESNext",
+    "moduleResolution": "node",     // Works for both Vite/bundler & ts‑node
+
+    /* Output & syntax targets */
+    "target": "ES2020",
+    "lib": ["esnext", "dom", "dom.iterable"],
+
+    /* Strictness & helpers */
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+
+    /* Paths / aliases */
+    "baseUrl": ".",
+    "types": ["node", "vite/client"],
+    "paths": {
+      "@/*": ["./client/src/*"],
+      "@shared/*": ["./shared/*"]
+    }
+  },
+
+  /* ──────────────────────────────────────────────
+     ts‑node specific overrides
+     ────────────────────────────────────────────── */
+  "ts-node": {
+    "compilerOptions": {
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "target": "ES2020"
+    },
+    "esm": true                     // ✅ Enables --loader ts-node/esm syntax
+  }
+}
